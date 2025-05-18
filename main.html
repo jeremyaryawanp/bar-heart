@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nyawa 2 Pemain + Simpan</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 40px;
+      background-color: #f0f0f0;
+    }
+    .player {
+      margin: 30px 0;
+    }
+    .lives {
+      font-size: 24px;
+      margin: 10px 0;
+    }
+    .heart {
+      color: red;
+      font-size: 32px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin: 5px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Nyawa Player</h1>
+
+  <div class="player" id="player1">
+    <h2>Player 1</h2>
+    <div id="lives1" class="lives"></div>
+    <button onclick="ubahNyawa(1, -1)">Kurangi Nyawa</button>
+    <button onclick="ubahNyawa(1, 1)">Tambah Nyawa</button>
+  </div>
+
+  <div class="player" id="player2">
+    <h2>Player 2</h2>
+    <div id="lives2" class="lives"></div>
+    <button onclick="ubahNyawa(2, -1)">Kurangi Nyawa</button>
+    <button onclick="ubahNyawa(2, 1)">Tambah Nyawa</button>
+  </div>
+
+  <script>
+    // Ambil nyawa dari localStorage atau set default ke 10
+    let nyawaP1 = parseInt(localStorage.getItem("nyawaP1")) || 10;
+    let nyawaP2 = parseInt(localStorage.getItem("nyawaP2")) || 10;
+
+    function tampilkanNyawa() {
+      const p1 = document.getElementById("lives1");
+      const p2 = document.getElementById("lives2");
+
+      p1.innerHTML = nyawaP1 > 0 ? '❤️ '.repeat(nyawaP1) : "💀 Game Over!";
+      p2.innerHTML = nyawaP2 > 0 ? '❤️ '.repeat(nyawaP2) : "💀 Game Over!";
+    }
+
+    function ubahNyawa(pemain, perubahan) {
+      if (pemain === 1) {
+        nyawaP1 = Math.max(0, nyawaP1 + perubahan);
+        localStorage.setItem("nyawaP1", nyawaP1);
+      } else if (pemain === 2) {
+        nyawaP2 = Math.max(0, nyawaP2 + perubahan);
+        localStorage.setItem("nyawaP2", nyawaP2);
+      }
+      tampilkanNyawa();
+    }
+
+    // Tampilkan nyawa awal saat halaman dibuka
+    tampilkanNyawa();
+  </script>
+</body>
+</html>
